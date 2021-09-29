@@ -4,9 +4,20 @@ public class ArrayIntList
 {
     private int[] elementData;
     private int size;
-    public ArrayIntList() {
-        elementData = new int[100];
+    public ArrayIntList() 
+    {
+        this(100);
+    }
+    public ArrayIntList(int num) {
+        if (num < 0)
+            throw new IllegalArgumentException("yo wtf this num is " +  num + " that dont make sentse");
+        elementData = new int[num];
         size = 0;
+    }
+    public void checkCapacity(int cap)
+    {
+        if (cap <= 0 || cap > size)
+            throw new IllegalStateException("frick");
     }
     public void add(int value)
     {
@@ -40,5 +51,9 @@ public class ArrayIntList
             elementData[i] = elementData[i-1];
         elementData[index] = value;
         ++size;
+    }
+    public boolean contains(int value)
+    {
+        return indexOf(value) >= 0;
     }
 }
