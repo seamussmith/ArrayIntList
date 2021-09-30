@@ -4,13 +4,13 @@ public class ArrayIntList
 {
     private int[] elementData;
     private int size;
-    public ArrayIntList() 
+    public ArrayIntList()
     {
         this(100);
     }
     public ArrayIntList(int num) {
         if (num < 0)
-            throw new IllegalArgumentException("yo wtf this num is " +  num + " that dont make sentse");
+            throw new IllegalArgumentException("yo wtf this num is " +  num + "that dont make sentse");
         elementData = new int[num];
         size = 0;
     }
@@ -51,6 +51,12 @@ public class ArrayIntList
             elementData[i] = elementData[i-1];
         elementData[index] = value;
         ++size;
+    }
+    public void addAll(ArrayIntList other)
+    {
+        checkCapacity(size + other.size());
+        for (int i = 0; i < other.size(); ++i)
+            add(other.get(i));
     }
     public boolean contains(int value)
     {
