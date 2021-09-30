@@ -1,14 +1,14 @@
 package main;
 
-public class ArrayIntList
+public class ArrayList<E>
 {
     private int[] elementData;
     private int size;
-    public ArrayIntList()
+    public ArrayList()
     {
         this(100);
     }
-    public ArrayIntList(int num) {
+    public ArrayList(int num) {
         if (num < 0)
             throw new IllegalArgumentException("yo wtf this num is " +  num + "that dont make sentse");
         elementData = new int[num];
@@ -52,7 +52,7 @@ public class ArrayIntList
         elementData[index] = value;
         ++size;
     }
-    public void addAll(ArrayIntList other)
+    public void addAll(ArrayList other)
     {
         checkCapacity(size + other.size());
         for (int i = 0; i < other.size(); ++i)
@@ -61,5 +61,9 @@ public class ArrayIntList
     public boolean contains(int value)
     {
         return indexOf(value) >= 0;
+    }
+    public ArrayIntListIterator iterator()
+    {
+        return new ArrayIntListIterator(this);
     }
 }
