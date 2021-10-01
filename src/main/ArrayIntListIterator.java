@@ -2,12 +2,12 @@ package main;
 
 import java.util.NoSuchElementException;
 
-public class ArrayIntListIterator
+public class ArrayIntListIterator<TElement>
 {
-    private ArrayList list;
+    private ArrayList<TElement> list;
     private int pos = 0;
     private boolean removeOk = false;
-    public ArrayIntListIterator(ArrayList list)
+    public ArrayIntListIterator(ArrayList<TElement> list)
     {
         this.list = list;
     }
@@ -15,7 +15,7 @@ public class ArrayIntListIterator
     {
         return pos < list.size();
     }
-    public int next()
+    public TElement next()
     {
         if (!hasNext())
             throw new NoSuchElementException();
