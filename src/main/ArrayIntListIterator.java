@@ -1,8 +1,9 @@
 package main;
 
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class ArrayIntListIterator<TElement>
+public class ArrayIntListIterator<TElement> implements Iterator<TElement>
 {
     private ArrayList<TElement> list;
     private int pos = 0;
