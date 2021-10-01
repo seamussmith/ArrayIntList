@@ -1,5 +1,7 @@
 package main;
 
+import java.util.Arrays;
+
 public class ArrayList<TElement>
 {
     private TElement[] elementData;
@@ -17,13 +19,16 @@ public class ArrayList<TElement>
         elementData = (TElement[]) new Object[num];
         size = 0;
     }
-    public void checkCapacity(int cap)
+    private void ensureCapacity(int cap)
     {
-        if (cap <= 0 || cap > size)
-            throw new IllegalStateException("frick");
+        int newCap = elementData.length * 2 + 1;
+        if (cap > newCap)
+            newCap = cap;
+        elementData = Arrays.copyOf(elementData, newCap);
     }
     public void add(TElement value)
     {
+        ensureCapacity(size);
         elementData[size] = value;
         ++size;
     }
@@ -50,6 +55,7 @@ public class ArrayList<TElement>
     }
     public void add(int index, TElement value)
     {
+        ensureCapacity(index + 1);
         for (var i = size; i >= index + 1; --i)
             elementData[i] = elementData[i-1];
         elementData[index] = value;
@@ -57,7 +63,7 @@ public class ArrayList<TElement>
     }
     public void addAll(ArrayList<TElement> other)
     {
-        checkCapacity(size + other.size());
+        ensureCapacity(size + other.size());
         for (int i = 0; i < other.size(); ++i)
             add(other.get(i));
     }
