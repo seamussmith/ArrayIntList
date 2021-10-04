@@ -32,4 +32,8 @@ public class ArrayIntListIterator<TElement> implements Iterator<TElement>
         --pos;
         removeOk = false;
     }
+    public void insert(TElement val)
+    {
+        list.set(pos, val);
+    }
 }
