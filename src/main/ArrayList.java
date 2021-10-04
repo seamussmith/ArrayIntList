@@ -1,8 +1,9 @@
 package main;
 
 import java.util.Arrays;
+import java.util.Iterator;
 
-public class ArrayList<TElement>
+public class ArrayList<TElement> implements Iterable<TElement>
 {
     private TElement[] elementData;
     private int size;
@@ -31,6 +32,10 @@ public class ArrayList<TElement>
         ensureCapacity(size);
         elementData[size] = value;
         ++size;
+    }
+    public void set(int i, TElement val)
+    {
+        elementData[i] = val;
     }
     public int size()
     {
@@ -74,5 +79,24 @@ public class ArrayList<TElement>
     public ArrayIntListIterator<TElement> iterator()
     {
         return new ArrayIntListIterator<TElement>(this);
+    }
+    public void replaceAll(TElement old, TElement newEl)
+    {
+        var iter = iterator();
+        while (iter.hasNext())
+        {
+            var el = iter.next();
+            if (el.equals(old))
+                iter.insert(newEl);
+        }
+    }
+    @SuppressWarnings("unchecked")
+    public void reverse()
+    {
+        var newArr = (TElement[]) new Object[elementData.length];
+        var j = 0;
+        for (var i = size-1; i >= 0; --i, ++j)
+            newArr[j] = elementData[i];
+        elementData = newArr;
     }
 }
