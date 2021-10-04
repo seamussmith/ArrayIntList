@@ -1,6 +1,7 @@
 package main;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
 
 public class ArrayList<TElement> implements Iterable<TElement>
@@ -87,7 +88,7 @@ public class ArrayList<TElement> implements Iterable<TElement>
         {
             var el = iter.next();
             if (el.equals(old))
-                iter.insert(newEl);
+                iter.set(newEl);
         }
     }
     @SuppressWarnings("unchecked")
@@ -98,5 +99,11 @@ public class ArrayList<TElement> implements Iterable<TElement>
         for (var i = size-1; i >= 0; --i, ++j)
             newArr[j] = elementData[i];
         elementData = newArr;
+    }
+    public void mirror()
+    {
+        var copy = Arrays.copyOf(elementData, size);
+        for (var i = size-1; i >= 0; --i)
+            add(copy[i]);
     }
 }

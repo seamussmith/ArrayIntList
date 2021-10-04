@@ -1,9 +1,10 @@
 package main;
 
 import java.util.Iterator;
+import java.util.ListIterator;
 import java.util.NoSuchElementException;
 
-public class ArrayIntListIterator<TElement> implements Iterator<TElement>
+public class ArrayIntListIterator<TElement> implements ListIterator<TElement>
 {
     private ArrayList<TElement> list;
     private int pos = 0;
@@ -12,10 +13,12 @@ public class ArrayIntListIterator<TElement> implements Iterator<TElement>
     {
         this.list = list;
     }
+    @Override
     public boolean hasNext()
     {
         return pos < list.size();
     }
+    @Override
     public TElement next()
     {
         if (!hasNext())
@@ -24,6 +27,7 @@ public class ArrayIntListIterator<TElement> implements Iterator<TElement>
         removeOk = true;
         return list.get(pos-1);
     }
+    @Override
     public void remove()
     {
         if (!removeOk)
@@ -32,8 +36,46 @@ public class ArrayIntListIterator<TElement> implements Iterator<TElement>
         --pos;
         removeOk = false;
     }
-    public void insert(TElement val)
+    @Override
+    public void set(TElement val)
     {
         list.set(pos, val);
+    }
+    @Override
+    public boolean hasPrevious()
+    {
+        return pos-1 > 0;
+    }
+    @Override
+    public TElement previous()
+    {
+        if (!hasPrevious())
+            throw new NoSuchElementException();
+        --pos;
+        removeOk = true;
+        return list.get(pos);
+    }
+    @Override
+    public int nextIndex()
+    {
+        if (!hasNext())
+            throw new NoSuchElementException();
+        ++pos;
+        removeOk = true;
+        return pos-1;
+    }
+    @Override
+    public int previousIndex()
+    {
+        if (!hasPrevious())
+            throw new NoSuchElementException();
+        --pos;
+        removeOk = true;
+        return pos;
+    }
+    @Override
+    public void add(TElement e)
+    {
+        list.add(pos, e);
     }
 }
